@@ -5,45 +5,55 @@
   <title>Dice Poker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://use.fontawesome.com/2e0921ab0e.js"></script>
   <!-- inject:js -->
   <!-- endinject -->
   <!-- inject:css -->
   <!-- endinject -->
+
 </head>
 <body>
-  <header>
-    <h1>Dice Poker</h1>
-  </header>
-  <nav id="stripe">
-    <ul id="nav">
-      <li id="play"></li>
-      <li id="message"></li>
-
-    </ul>
-  </nav>
-  <div id="game-container">
-    <div id="player-container">
-      <div id='cpu-one'class="square"></div>
-      <div id='cpu-two'class="square"></div>
-      <div id='cpu-three' class="square"></div>
-      <div id='cpu-four'class="square"></div>
-      <div id='cpu-five'class="square int"></div>
+  <div class=".header-wrapper">
+    <header>
+      <h1>Dice Poker</h1>
+    </header>
+    <nav>
+      <ul>
+        <li id="play">Some text</li>
+        <li id="message">Some more text</li>
+      </ul>
+    </nav>
+  </div>
+  <div class="page-wrapper">
+    <div id="game-container">
+      <div id="cpu-container">
+        <div id='cpu-one'class="square die-one"><img></div>
+        <div id='cpu-two'class="square die-one"><img></div>
+        <div id='cpu-three' class="square die-one"><img></div>
+        <div id='cpu-four'class="square die-one"><img></div>
+        <div id='cpu-five'class="square  die-one"><img></div>
+      </div>
+      <div id="player-container">
+        <div id='one'class="square die-one"><img></div>
+        <div id='two'class="square die-two"><img></div>
+        <div id='three' class="square die-three"><img></div>
+        <div id='four'class="square die-four"><img></div>
+        <div id='five'class="square die-red-six"><img></div>
+      </div>
     </div>
-    <div id="player-container">
-      <div id='one'class="square"></div>
-      <div id='two'class="square"></div>
-      <div id='three' class="square"></div>
-      <div id='four'class="square"></div>
-      <div id='five'class="square int"></div>
-    </div>
-
     <div class="results-container">
-      <p class="active">Player One<nav id="playerOne"></nav></p>
-      <p>Computer<nav id="computer-score"></nav></p>
-      <p>Player One<nav id="player-score"></nav></p>
+      <p class="active"><span id="playerOne"></span></p>
+      <p><span id="computer-score"></span></p>
+      <p><span id="player-score"></span></p>
       <div class="winner"></div>
       <div class="loser"></div>
     </div>
   </div>
+  <footer>
+    <ul>
+      <li>Something</li>
+      <li>Something</li>
+    </ul>
+  </footer>
 </body>
 </html>
