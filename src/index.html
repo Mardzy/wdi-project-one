@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>WDI Project 1</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- inject:js -->
-    <!-- endinject -->
-    <!-- inject:css -->
-    <!-- endinject -->
-  </head>
-  <body>
-
+<head>
+  <meta charset="utf-8">
+  <title>The Great Color Guessing Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- inject:js -->
+  <!-- endinject -->
+  <!-- inject:css -->
+  <!-- endinject -->
+</head>
+<body>
+  <header>
+    <h1>The Great </br> <span id="colorDisplay"> Color</span></br>
+      Guessing Game</h1>
+    </header>
+    <nav id="stripe">
+      <ul id="nav">
+        <li id="play"></li>
+        <li id="message"></li>
+        <li id="beginner"></li>
+        <li id="intermediate"></li>
+        <li id="advanced"></li>
+        <li id="colorNinja"></li>
+      </ul>
+    </nav>
+    <div id="game-container">
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square int"></div>
+      <div class="square int"></div>
+      <div class="square int"></div>
+      <div class="square adv"></div>
+      <div class="square adv"></div>
+      <div class="square adv"></div>
+      <div class="square ninja"></div>
+      <div class="square ninja"></div>
+      <div class="square ninja"></div>
+    </div>
+    <div class="results-container">
+      <p class="active">Player One<nav id="playerOne"></nav></p>
+      <p>Player One<nav id="playerOne"></nav></p>
+      <p>Player Two<nav id="playerTwo"></nav></p>
+      <div class="winner"></div>
+      <div class="loser"></div>
+    </div>
   </body>
-</html>
+  </html>
