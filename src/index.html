@@ -19,18 +19,25 @@
     </header>
     <nav>
       <ul>
-        <li id="play">Some text</li>
-        <li id="message">Some more text</li>
+        <li id="play">Play New Game</li>
+        <li id="rules">Game Rules</li>
       </ul>
     </nav>
   </div>
   <div class="page-wrapper">
+    <div class="results-container">
+      <p class="active"><span id="playerOne"></span></p>
+      <p><span id="computer-score"></span></p>
+      <p><span id="player-score"></span></p>
+      <div class="winner"></div>
+      <div class="loser"></div>
+    </div>
     <div id="game-container">
       <div id="cpu-container">
         <div id='cpu-one'class="square die-one"><img></div>
-        <div id='cpu-two'class="square die-one"><img></div>
-        <div id='cpu-three' class="square die-one"><img></div>
-        <div id='cpu-four'class="square die-one"><img></div>
+        <div id='cpu-two'class="square die-two"><img></div>
+        <div id='cpu-three' class="square die-three"><img></div>
+        <div id='cpu-four'class="square die-four"><img></div>
         <div id='cpu-five'class="square  die-one"><img></div>
       </div>
       <div id="player-container">
@@ -41,13 +48,7 @@
         <div id='five'class="square die-red-six"><img></div>
       </div>
     </div>
-    <div class="results-container">
-      <p class="active"><span id="playerOne"></span></p>
-      <p><span id="computer-score"></span></p>
-      <p><span id="player-score"></span></p>
-      <div class="winner"></div>
-      <div class="loser"></div>
-    </div>
+
   </div>
   <footer>
     <ul>
