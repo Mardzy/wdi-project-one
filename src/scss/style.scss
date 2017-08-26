@@ -74,15 +74,12 @@ nav {
     justify-content: space-around;
     background-color: dimGray;
     align-self: center;
-    border-radius: 15px;
-
 
     .square{
       width: 100px;
       height: 100px;
       background-color: floralWhite;
       align-self: center;
-      border-radius: 15px;
 
     }
   }
@@ -114,4 +111,64 @@ footer {
 
 img{
   width: 100%
+}
+
+.die-one {
+  background-image: url('../images/dice-1-hi.png');
+  background-size: cover;
+}
+
+.die-two {
+  background-image: url('../images/dice-2-hi.png');
+  background-size: cover;
+}
+
+.die-three {
+  background-image: url('../images/dice-3-hi.png');
+  background-size: cover;
+}
+
+.die-four {
+  background-image: url('../images/dice-4-hi.png');
+  background-size: cover;
+}
+
+.die-five {
+  background-image: url('../images/dice-5-hi.png');
+  background-size: cover;
+}
+
+.die-six {
+  background-image: url('../images/dice-6-hi.png');
+  background-size: cover;
+}
+
+.die-red-red-one {
+  background-image: url('../images/die-red-1.png');
+  background-size: cover;
+}
+
+.die-red-two {
+  background-image: url('../images/die-red-2.png');
+  background-size: cover;
+}
+
+.die-red-three {
+  background-image: url('../images/die-red-3.png');
+  background-size: cover;
+}
+
+.die-red-four {
+  background-image: url('../images/die-red-4.png');
+  background-size: cover;
+}
+
+.die-red-five {
+  background-image: url('../images/die-red-5.png');
+  background-size: cover;
+}
+
+.die-red-six {
+  background-image: url('../images/die-red-6.png');
+  background-size: cover;
 }
