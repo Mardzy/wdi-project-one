@@ -2,7 +2,12 @@ $(() => {
 
 //variables
   const $square = $('.square');
-  const $play = $('.play');
+  const $play = $('#play');
+  const $rules = $('#rules');
+  const $computerScore = $('#computer-score');
+  const $selectNewGame = $('#select-new-game');
+  const $hold = $('#hold');
+  const $playerScore = $('#player-score');
   let playingGame = false;
   let playText = $($play).text('Start Game');
 

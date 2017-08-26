@@ -13,48 +13,45 @@
 
 </head>
 <body>
-  <div class=".header-wrapper">
-    <header>
-      <h1>Dice Poker</h1>
-    </header>
-    <nav>
-      <ul>
-        <li id="play">Play New Game</li>
-        <li id="rules">Game Rules</li>
-      </ul>
-    </nav>
+  <header>
+    <p>Dice Poker</p>
+  </header>
+  <div class="nav-wrapper">
+        <button id="play">Play New Game</button>
+        <p id="message" style="color:yellow">RESULT</p>
+        <button id="rules">Game Rules</button>
   </div>
   <div class="page-wrapper">
     <div class="results-container">
-      <p class="active"><span id="playerOne"></span></p>
-      <p><span id="computer-score"></span></p>
-      <p><span id="player-score"></span></p>
-      <div class="winner"></div>
-      <div class="loser"></div>
+      <div class="score-wrapper">
+        <p class="cpu">CPU SCORE: <span id="computer-score">XXX</span></p>
+        <p>YOUR SCORE: <span id="player-score">XXX</span></p>
+      </div>
+      <div class="button-wrapper">
+        <button type="button" name="select-new-game">Select New Dice</button>
+
+        <button type="button" name="hold">Hold</button>
+      </div>
     </div>
     <div id="game-container">
       <div id="cpu-container">
-        <div id='cpu-one'class="square die-one"><img></div>
-        <div id='cpu-two'class="square die-two"><img></div>
-        <div id='cpu-three' class="square die-three"><img></div>
-        <div id='cpu-four'class="square die-four"><img></div>
-        <div id='cpu-five'class="square  die-one"><img></div>
+        <div id="cpu-one" class="square die-one"><img></div>
+        <div id="cpu-two" class="square die-two"><img></div>
+        <div id="cpu-three" class="square die-three"><img></div>
+        <div id="cpu-four" class="square die-four"><img></div>
+        <div id="cpu-five" class="square  die-one"><img></div>
       </div>
       <div id="player-container">
-        <div id='one'class="square die-one"><img></div>
-        <div id='two'class="square die-two"><img></div>
-        <div id='three' class="square die-three"><img></div>
-        <div id='four'class="square die-four"><img></div>
-        <div id='five'class="square die-red-six"><img></div>
+        <div id="one" class="square die-one"><img></div>
+        <div id="two" class="square die-two"><img></div>
+        <div id="three" class="square die-three"><img></div>
+        <div id="four" class="square die-four"><img></div>
+        <div id="five" class="square die-red-six"><img></div>
       </div>
     </div>
-
+    <footer>
+    </footer>
   </div>
-  <footer>
-    <ul>
-      <li>Something</li>
-      <li>Something</li>
-    </ul>
-  </footer>
+
 </body>
 </html>
