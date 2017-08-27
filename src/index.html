@@ -5,7 +5,8 @@
   <title>Dice Poker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://use.fontawesome.com/2e0921ab0e.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500" rel="stylesheet">
+  <!-- <script src="https://use.fontawesome.com/2e0921ab0e.js"></script> -->
   <!-- inject:js -->
   <!-- endinject -->
   <!-- inject:css -->
@@ -13,26 +14,34 @@
 
 </head>
 <body>
-  <header>
-    <p>Dice Poker</p>
-  </header>
-  <div class="nav-wrapper">
-        <button id="play">Play New Game</button>
-        <p id="message" style="color:yellow">RESULT</p>
-        <button id="rules">Game Rules</button>
-  </div>
-  <div class="page-wrapper">
-    <div class="results-container">
-      <div class="score-wrapper">
-        <p class="cpu">CPU SCORE: <span id="computer-score">XXX</span></p>
-        <p>YOUR SCORE: <span id="player-score">XXX</span></p>
-      </div>
-      <div class="button-wrapper">
-        <button type="button" name="select-new-game">Select New Dice</button>
+  <div class="header-wrapper">
+    <header>
+      <img src="images/dice-logo.png" alt="dice">
+      <p class="elegantshadow">Dice Poker</p>
+      <img id="poker" src="images/poker.png" alt="poker hand">
 
-        <button type="button" name="hold">Hold</button>
-      </div>
+    </header>
+  </div>
+
+  <div class="nav-wrapper">
+    <div class="play-wrapper">
+      <button id="play">Play New Game</button>
+
+      <button id="rules">Game Rules</button>
     </div>
+
+    <div class="score-wrapper">
+      <p class="cpu">CPU SCORE: <span id="computer-score">XXX</span></p>
+      <p>YOUR SCORE: <span id="player-score">XXX</span></p>
+    </div>
+
+    <div class="button-wrapper">
+      <button type="button" name="select-new-dice">Select New Dice</button>
+      <button type="button" name="hold">Hold</button>
+    </div>
+
+  </div>
+  <div id="page-wrapper">
     <div id="game-container">
       <div id="cpu-container">
         <div id="cpu-one" class="square die-one"><img></div>
@@ -40,6 +49,11 @@
         <div id="cpu-three" class="square die-three"><img></div>
         <div id="cpu-four" class="square die-four"><img></div>
         <div id="cpu-five" class="square  die-one"><img></div>
+      </div>
+      <div class="results-wrapper">
+        <p id="wins" >WINS: <span></span></p>
+        <p id="result" >RESULT</p>
+        <p id="losses" >LOSSES: <span></span></p>
       </div>
       <div id="player-container">
         <div id="one" class="square die-one"><img></div>
@@ -50,6 +64,8 @@
       </div>
     </div>
     <footer>
+      <p class="copyright">Copyright 2017</p>
+      <p class="message">Created with &hearts; by <span class="name">GA</span></p>
     </footer>
   </div>
 
