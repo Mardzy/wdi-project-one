@@ -2,12 +2,12 @@ $(() => {
 
 //variables
   const $square = $('.square');
-  const $play = $('#play');
   const $rules = $('#rules');
-  const $computerScore = $('#computer-score');
-  const $selectNewGame = $('#select-new-game');
-  const $hold = $('#hold');
+  const $play = $('#play');
   const $playerScore = $('#player-score');
+  const $computerScore = $('#computer-score');
+  const $rollDice = $('#roll-dice');
+  const $hold = $('#hold');
   let playingGame = false;
   let playText = $($play).text('Start Game');
 
@@ -15,7 +15,6 @@ $(() => {
   function playGame (){
     if(!playingGame){
       console.log('click');
-
       return playText;
     } else {
       playingGame = true;
@@ -33,7 +32,10 @@ $(() => {
 
   $square.on('click', clickSquare);
   console.log(playGame);
-});// last line
+
+
+
+});// last line inside dom
 
 
 // const dice ={

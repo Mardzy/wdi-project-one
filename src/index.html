@@ -25,24 +25,23 @@
 
   <div class="nav-wrapper">
     <div class="play-wrapper">
-      <button id="play">Play New Game</button>
-
-      <button id="rules">Game Rules</button>
+      <button id="rules" class="demo"data-href="rules">Game Rules</button>
+      <button id="new-round" class="demo"data-href="newRound">New Round</button>
     </div>
 
     <div class="score-wrapper">
-      <p class="cpu">CPU SCORE: <span id="computer-score">XXX</span></p>
-      <p>YOUR SCORE: <span id="player-score">XXX</span></p>
+      <p class="cpu">CPU SCORE: <span id="computer-score">0</span></p>
+      <p>YOUR SCORE: <span id="player-score">0</span></p>
     </div>
 
     <div class="button-wrapper">
-      <button type="button" name="select-new-dice">Select New Dice</button>
-      <button type="button" name="hold">Hold</button>
+      <button id="roll-dice" class="demo"type="button" name="roll-dice">Roll Dice</button>
+      <button id="hold" class="demo"type="button" name="hold">Hold</button>
     </div>
 
   </div>
-  <div id="page-wrapper">
-    <div id="game-container">
+  <div id="page-wrapper" >
+    <div id="game-container"data-href="mteam">
       <div id="cpu-container">
         <div id="cpu-one" class="square die-one"><img></div>
         <div id="cpu-two" class="square die-two"><img></div>
@@ -63,11 +62,12 @@
         <div id="five" class="square die-red-six"><img></div>
       </div>
     </div>
-    <footer>
-      <p class="copyright">Copyright 2017</p>
-      <p class="message">Created with &hearts; by <span class="name">GA</span></p>
-    </footer>
+
   </div>
+  <footer>
+    <p>&copy; 2017</p>
+    <p>Created with <span class="heart">&hearts;</span>  &#64; <span class="name">GA</span></p>
+  </footer>
 
 </body>
 </html>

@@ -6,6 +6,7 @@
   margin:0;
 }
 body {
+  color:rgba(234, 234, 234,0.9);
   margin:0;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
@@ -16,6 +17,7 @@ body {
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
+  text-transform: uppercase;
 }
 
 img {
@@ -36,6 +38,8 @@ img {
 
   button{
     background-color: rgba(221,217,218,0.8);
+    text-transform: uppercase;
+
     height: 32%;
     font-size: 18px;
     font-weight: 500;
@@ -73,7 +77,7 @@ img {
 }
 
 #page-wrapper{
-  height: 450px;
+  height: 410px;
   display: flex;
   justify-content: center;
 
@@ -148,14 +152,23 @@ img {
 }
 
 footer {
-    text-transform: uppercase;
+    display: flex;
     font-size: 14px;
-    background-color: #0D2C40;
-    padding: 0 20px;
+    background-color: transparent;
     letter-spacing: .08em;
     font-weight: 500;
-    margin: 0 auto;
-    span{
-      
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 30px;
+    text-shadow: $text-shadow;
+
+
+    .heart{
+      color: red;
+    }
+    .name{
+      color:#F15B31;
     }
 }
