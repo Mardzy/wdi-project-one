@@ -39,7 +39,7 @@ img {
   button{
     background-color: rgba(221,217,218,0.8);
     text-transform: uppercase;
-
+    color: rgb(131, 30, 27);
     height: 32%;
     font-size: 18px;
     font-weight: 500;
@@ -47,6 +47,8 @@ img {
     border: none;
     border-radius: 6px;
     box-shadow: $box-shadow;
+    text-shadow: $text-shadow;
+
     &button:hover{
       background-color: rgba(221,217,218,0.6)-2%;
     }
@@ -77,9 +79,11 @@ img {
 }
 
 #page-wrapper{
+
   height: 410px;
   display: flex;
   justify-content: center;
+
 
   .square{
     width: 100px;
@@ -151,24 +155,75 @@ img {
   }
 }
 
-footer {
+#hidden-wrapper{
+  @extend #page-wrapper;
+  width: 80%;
+  background-color:rgba(208, 202, 199,0.8);
+  color: Orange;
+  border-radius: $border-radius;
+  flex-direction: column;
+  color: rgb(131, 30, 27);
+  text-shadow: $text-shadow;
+  box-shadow: $box-shadow;
+  .hidden-headline{
     display: flex;
-    font-size: 14px;
-    background-color: transparent;
-    letter-spacing: .08em;
-    font-weight: 500;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 30px;
-    padding-right: 30px;
-    height: 30px;
-    text-shadow: $text-shadow;
+    flex-wrap: wrap;
+    flex-basis: auto;
+    justify-content: center;
+  }
+  h2 {
+
+  }
+  .hidden-rules{
+    margin-top: 15px;
+    display: flex;
+    height: 300px;
+    justify-content: space-around;
+    flex-direction: row;
+    margin-left: 20px;
+    p{
+      line-height: 26px;
+      letter-spacing: 0.1em;
+      display: flex;
+      justify-content: flex-start;
+      width: 55%;
+      flex-wrap: wrap;
+      flex-direction: row;
+      text-align: left;
+      font-size: 20px;
+    }
+    .hands
+    {
+      @extend p;
+      font-size: 14px;
+      line-height:23px;
+      color: black;
+      width: 35%;
+      margin-left: -40px;
+    }
+  }
+
+}
 
 
-    .heart{
-      color: red;
-    }
-    .name{
-      color:#F15B31;
-    }
+footer {
+  display: flex;
+  font-size: 14px;
+  background-color: transparent;
+  letter-spacing: .08em;
+  font-weight: 500;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+  height: 30px;
+  text-shadow: $text-shadow;
+
+
+  .heart{
+    color: red;
+  }
+  .name{
+    color:#F15B31;
+  }
 }
