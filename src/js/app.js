@@ -4,41 +4,80 @@ $(() => {
 
   //buttons
   const $rules = $('#rules');
-  const $newRound = $('#new-round');
-  const $rollDice = $('#roll-dice');
-  const $hold = $('#hold');
-  const $div = $('#' + $(this).data('href'));
-  const $demo = $('.demo');
+  const $startGame = $('#start-game');
+  // const $newRound = $('#new-round');
+  // const $rollDice = $('#roll-dice');
+  // const $hold = $('#hold');
+
 
   //display elements
-  const $square = $('.square');
-  const $playerScore = $('#player-score');
-  const $computerScore = $('#computer-score');
+  // const $square = $('.square');
   const $gameContainer = $('#game-container');
   const $hiddenWrapper = $('#hidden-wrapper');
-  const $pageWrapper = $('#page-wrapper');
+  const $cpuOne = $('#cpu-one');
+  const $cpuTwo = $('#cpu-two');
+  const $cpuThree = $('#cpu-three');
+  const $cpuFour = $('#cpu-four');
+  const $cpuFive = $('#cpu-five');
+  const $cpuSix = $('#cpu-six');
+  const $one = $('#one');
+  const $two = $('#two');
+  const $three = $('#thre');
+  const $four = $('#four');
+  const $five = $('#five');
+  const $six = $('#six');
 
 
   //game logic
   let playingGame = false;
   const randomNumber = Math.floor(Math.random() *(1,6) +1);
-  const dice ={
-    1: '../images/die-1-hi.png',
-    2: '../images/die-2-hi.png',
-    3: '../images/die-3-hi.png',
-    4: '../images/die-4-hi.png',
-    5: '../images/die-5-hi.png',
-    6: '../images/die-6-hi.png'
-  };
+  const playerDice =[];
+  const computerDice =[];
 
+  function startGame (){
+    if(playingGame)
+      switch (randomNumber>=6) {
+        case  randomNumber === 1:
+          $one,$cpuOne.addClass('.die-one');
+          playerDice.push(1);
+          computerDice.push(1);
+          break;
+        case randomNumber === 2:
+          $two,$cpuTwo.addClass('.die-two');
+          playerDice.push(2);
+          computerDice.push(2);
+          break;
+        case  randomNumber === 3:
+          $three,$cpuThree.addClass('.die-three');
+          playerDice.push(3);
+          computerDice.push(3);
+          break;
+        case randomNumber === 4:
+          $four,$cpuFour.addClass('.die-four');
+          playerDice.push(4);
+          computerDice.push(4);
+          break;
+        case  randomNumber === 5:
+          $five,$cpuFive.addClass('.die-five');
+          playerDice.push(5);
+          computerDice.push(5);
+          break;
+        case randomNumber === 6:
+          $six,$cpuSix.addClass('.die-six');
+          playerDice.push(6);
+          computerDice.push(6);
+          break;
+        default:
+          console.log('no default');
+      } else
+      playingGame = true;
+  }
 
 
 
 
   console.log(randomNumber);
   // let playText = $($result).text('Start Game');
-  let computerScore = '';
-  let playerScore = '';
   // functions
   // function playGame (){
   //   if(!playingGame){
@@ -51,15 +90,11 @@ $(() => {
   //   }
   // }
 
-  function clickSquare() {
-    console.log('clicked square');
-  }
+  // function clickSquare() {
+  //   console.log('clicked square');
+  // }
 
   // jquery listeners
-
-  // $square.on('click', clickSquare);
-  // console.log(playGame);
-
   function showRules(){
     if($gameContainer.css('display')!=='none'){
       $gameContainer.css({'display': 'none'});
@@ -72,5 +107,6 @@ $(() => {
 
   }
   $rules.on('click',showRules);
+  $startGame.on('click',startGame);
 
 });// last line inside dom
