@@ -94,7 +94,9 @@ img {
     border-radius: $border-radius;
     box-shadow: $box-shadow;
   }
-
+  .cpu-square{
+    @extend .square;
+  }
   #game-container{
     width: 80%;
     height: 100%;
