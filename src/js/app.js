@@ -1,9 +1,13 @@
+//*************update the data model and render**************
+
+
 $(() => {
 
   //variables
 
   //buttons
   const $rules = $('#rules');
+  const $reset = $('#reset');
   const $startGame = $('#start-game');
   // const $newRound = $('#new-round');
   // const $rollDice = $('#roll-dice');
@@ -11,72 +15,87 @@ $(() => {
 
 
   //display elements
-  // const $square = $('.square');
+  //const $square = $('.square');
   const $gameContainer = $('#game-container');
   const $hiddenWrapper = $('#hidden-wrapper');
-  const $cpuOne = $('#cpu-one');
-  const $cpuTwo = $('#cpu-two');
-  const $cpuThree = $('#cpu-three');
-  const $cpuFour = $('#cpu-four');
-  const $cpuFive = $('#cpu-five');
-  const $cpuSix = $('#cpu-six');
-  const $one = $('#one');
-  const $two = $('#two');
-  const $three = $('#thre');
-  const $four = $('#four');
-  const $five = $('#five');
-  const $six = $('#six');
-
+  const $playerContainer = $('#player-container');
+  const $computerContainer = $('#cpu-container');
+  const $wins= $('#wins span');
+  const $losses= $('#losses span');
+  const wins= 0;
+  const losses= 0;
 
   //game logic
-  let playingGame = false;
-  const randomNumber = Math.floor(Math.random() *(1,6) +1);
-  const playerDice =[];
-  const computerDice =[];
+  // const playerDice =[];
+  // const computerDice =[];
 
-  function startGame (){
-    if(playingGame)
-      switch (randomNumber>=6) {
-        case  randomNumber === 1:
-          $one,$cpuOne.addClass('.die-one');
-          playerDice.push(1);
-          computerDice.push(1);
-          break;
-        case randomNumber === 2:
-          $two,$cpuTwo.addClass('.die-two');
-          playerDice.push(2);
-          computerDice.push(2);
-          break;
-        case  randomNumber === 3:
-          $three,$cpuThree.addClass('.die-three');
-          playerDice.push(3);
-          computerDice.push(3);
-          break;
-        case randomNumber === 4:
-          $four,$cpuFour.addClass('.die-four');
-          playerDice.push(4);
-          computerDice.push(4);
-          break;
-        case  randomNumber === 5:
-          $five,$cpuFive.addClass('.die-five');
-          playerDice.push(5);
-          computerDice.push(5);
-          break;
-        case randomNumber === 6:
-          $six,$cpuSix.addClass('.die-six');
-          playerDice.push(6);
-          computerDice.push(6);
-          break;
-        default:
-          console.log('no default');
-      } else
-      playingGame = true;
+  //let playingGame = false;
+
+  function createRandomNumbers(length,min,max){
+    const randomNumbers =[];
+    for (let i = 0; i<length;i++){
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      const random= Math.floor(Math.random() * (max - min + 1)) + min;
+      randomNumbers.push(random);
+    }
+    return randomNumbers;
+  }
+
+  var model = {
+    playerHand: createRandomNumbers(5,1,6),
+    computerHand: createRandomNumbers(5,1,6),
+
+    highlightedIndices: [],
+    winningHands: []
+  };
+
+  function startGame(){
+    render(model);
+  }
+
+  function loopHighlighted(){
+    for(let i =0; i < model.highlightedIndices.length; i++){
+      const highlightedIndex = model.highlightedIndices[i];
+      const elem = $playerContainer.find('.square')[highlightedIndex];
+      $(elem).addClass('highlighted');
+    }
+
+  }
+
+  function clickSquare(idx) {
+    if (model.highlightedIndices.length <3)
+      model.highlightedIndices.push(idx);
+    render();
+  }
+  function reset(){
+    $playerContainer.html('');
+    $computerContainer.html('');
+    $wins.text(wins);
+    $losses.text(losses);
+  }
+  function render(){
+    reset();
+    model.playerHand.forEach((value, idx) => {
+      const elem = $('<div class="square"></div>');
+      elem.addClass('die-' + value);
+      $playerContainer.append(elem);
+      elem.on('click', () => clickSquare(idx));
+    });
+    model.computerHand.forEach(value => {
+      const elem = $('<div class="square"></div>');
+      elem.addClass('die-' + value);
+      $computerContainer.append(elem);
+    });
+
+    loopHighlighted();
   }
 
 
+  console.log(createRandomNumbers(5,1,6));
 
 
-  console.log(randomNumber);
+
   // let playText = $($result).text('Start Game');
   // functions
   // function playGame (){
@@ -90,9 +109,7 @@ $(() => {
   //   }
   // }
 
-  // function clickSquare() {
-  //   console.log('clicked square');
-  // }
+
 
   // jquery listeners
   function showRules(){
@@ -102,11 +119,12 @@ $(() => {
     } else {
       $hiddenWrapper.css({'display': 'none'});
       $gameContainer.css({'display': 'flex'});
-
     }
 
   }
+
   $rules.on('click',showRules);
+  $reset.on('click',reset);
   $startGame.on('click',startGame);
 
 });// last line inside dom
