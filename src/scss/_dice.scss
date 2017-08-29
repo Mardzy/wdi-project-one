@@ -32,3 +32,10 @@
 .highlighted {
   border: 2px solid yellow;
 }
+
+#hidden-dice {
+
+  background-color: rgb(235, 235, 235);
+  background-image: none;
+  z-index: 9;
+}
