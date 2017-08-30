@@ -35,7 +35,7 @@
     </div>
 
     <div class="button-wrapper">
-      <button id="roll-dice" type="button" name="roll-dice">Roll Dice</button>
+      <button id="roll-dice" type="button" name="roll-dice">Exchange Dice</button>
       <button id="hold" type="button" name="hold">Hold</button>
     </div>
 
@@ -51,9 +51,9 @@
       </div>
       <div class="results-wrapper">
         <p id="result" >Welcome to Dice Sums!!!<br>Click Start Game</p>
-        <p id="wins" >WINS: <span>0</span></p>
-        <p id="losses" >LOSSES: <span>0</span></p>
-        <p id="draws" >DRAWS: <span>0</span></p>
+        <p id="wins" >WINS: <span id="win">0</span></p>
+        <p id="losses" >LOSSES: <span id="loss">0</span></p>
+        <p id="draws" >DRAWS: <span id="draw">0</span></p>
       </div>
       <div id="player-container">
         <div class="square"></div>
@@ -70,23 +70,17 @@
       </div>
       <div class="hidden-rules">
         <p>
-          Poker Dice, a poker style game with 5 dice, 3 rounds, versus the computer.<br>
-          Up to 3 dice can be exchanged each round. Select dice you would like to keep.
-          Highest value is 6, lowest is 1.<br>
-          Click Roll dice to start the next round after you have made your selections, or hold if you want to stay with what you have.
+          Dice Sums, a game with 5 dice, and 3 rounds versus the computer.
+          In each round 3 dice or less can be exchanged.
+          Click the dice you would like to replace.
+          Exchange dice will roll new dice to replace your selections.
+          Click start, and your dice will be shown on the blue container.
+          If you want to keep the dice you have, click hold, and sums will be compared.
+          The next round button starts a new match, while keeping score of wins an losses.
+          Highest value is 6, lowest is 1. At the end of the game your sum will be compared against the Computers'.
+
           <br>
           <strong>HAVE FUN!!</strong></p>
-          <p class="hands">
-            Highest to Low Round<br>
-            Five of a kind<br>
-            Four of a kind<br>
-            Full house  (three of a kind &amp; pair)<br>
-            Straight<br>
-            Three of a kind<br>
-            Two pair<br>
-            One pair<br>
-            Bust (High dice, no pair, no straight)<br>
-          </p>
 
 
         </div>

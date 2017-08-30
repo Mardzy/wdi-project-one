@@ -19,9 +19,9 @@ $(() => {
   const $hiddenWrapper = $('#hidden-wrapper');
   const $playerContainer = $('#player-container');
   const $computerContainer = $('#cpu-container');
-  const $wins = $('#wins span');
-  const $losses = $('#losses span');
-  const $draws = $('#draws span');
+  const $wins = $('span#win');
+  const $losses = $('span#loss');
+  const $draws = $('span#draw');
   let wins = 0;
   let losses = 0;
   let draws = 0;
@@ -34,13 +34,15 @@ $(() => {
     computerHand: createRandomNumbers(5,1,6),
     highlightedIndices: [],
     roundsLeft: 0
-
   };
+
   function startGame(){
+    wins = 0;
+    losses = 0;
+    draws = 0;
     model.roundsLeft = 3;
     render(model);
-    removeHighlighted();
-    winCondition();
+    newRound();
   }
 
   function newRound(){
@@ -57,7 +59,6 @@ $(() => {
       highlightedIndices: [],
       roundsLeft: 3
     };
-
     rollPlayerDice();
     rollComputerDice();
     loopHighlighted();
@@ -88,8 +89,6 @@ $(() => {
     }
     return randomNumbers;
   }
-
-
 
   function rollPlayerDice(){
     model.playerHand.forEach((value, idx) => {
@@ -163,20 +162,19 @@ $(() => {
   }
 
   function winCondition(){
-    if(gamePlaying){
+    if(!gamePlaying)return false; {
       if(pSum > cpuSum){
         wins++;
         $result.html('You Win');
         $wins.text(wins);
-
-      } else if (pSum < cpuSum){
+      } if (pSum < cpuSum){
         losses++;
         $result.html('You Lose');
         $losses.text(losses);
-      } else {
+      } if(!gamePlaying && pSum === cpuSum){
+        draws++;
         $result.html('Draw');
         $draws.text(draws);
-        draws++;
       }
     }
   }
@@ -195,6 +193,8 @@ $(() => {
     $('.highlighted').removeClass('highlighted');
   }
 
+
+
   function revealComputerHand(){
     $('div#hidden-dice').removeAttr('id');
   }
@@ -203,8 +203,6 @@ $(() => {
     $playerContainer.html('');
     $computerContainer.html('');
     removeHighlighted();
-    wins = 0;
-    losses = 0;
     cpuSum = 0;
     pSum = 0;
     gamePlaying = true;
@@ -220,8 +218,6 @@ $(() => {
     }
   }
 
-
-
   // jquery listeners
   $startGame.on('click',startGame);
   $reset.on('click', reset);
@@ -229,4 +225,9 @@ $(() => {
   $rules.on('click',showRules);
   $rollDice.on('click', createHighlights);
   $hold.on('click', endGame);
+
+  $('<div class="square"></div>').change(function(){
+    $('<div class="square"></div>').removeClass('highlighted');
+    $('<div class="square"></div>').addClass('highlighted');
+  });
 });// last line inside dom
