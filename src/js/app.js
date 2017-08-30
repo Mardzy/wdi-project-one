@@ -15,7 +15,6 @@ $(() => {
 
   //display elements
   const $result = $('#result');
-  //const $square = $('.square');
   const $gameContainer = $('#game-container');
   const $hiddenWrapper = $('#hidden-wrapper');
   const $playerContainer = $('#player-container');
@@ -57,12 +56,11 @@ $(() => {
     computerHand: createRandomNumbers(5,1,6),
     highlightedIndices: [],
     roundsLeft: 0
+
   };
 
-
-
   function startGame(){
-    model.roundsLeft = 2;
+    model.roundsLeft = 3;
     render(model);
   }
 
@@ -77,26 +75,29 @@ $(() => {
     render();
   });
 
-  $hold.click(() => {
-    if(model.roundsLeft > 0) {
-      model.highlightedIndices = [];
-      model.roundsLeft = model.roundsLeft - 1;
-    }
-  });
+  function endGame() {
+    model.highlightedIndices = [];
+    model.roundsLeft = 0;
+    revealComputerHand();
+  }
 
 
+  function revealComputerHand(){
+    $('div#hidden-dice').removeAttr('id');
+  }
 
   function loopHighlighted(){
-    for(let i =0; i < model.highlightedIndices.length; i++){
-      const highlightedIndex = model.highlightedIndices[i];
-      const elem = $playerContainer.find('.square')[highlightedIndex];
-      $(elem).addClass('highlighted');
-    }
+    if(model.roundsLeft > 0)
+      for(let i =0; i < model.highlightedIndices.length; i++){
+        const highlightedIndex = model.highlightedIndices[i];
+        const elem = $playerContainer.find('.square')[highlightedIndex];
+        $(elem).addClass('highlighted');
+      }
   }
 
   function pushToIndex(idx) {
     if (model.highlightedIndices.length < 3 && !model.highlightedIndices.includes(idx))
-    model.highlightedIndices.push(idx);
+      model.highlightedIndices.push(idx);
   }
 
   function reset(){
@@ -104,11 +105,20 @@ $(() => {
     $computerContainer.html('');
     $wins.text(wins);
     $losses.text(losses);
-    $result.html('Welcome to Poker Dice!!!</br>Click Start Game');
     removeHighlighted();
-
   }
 
+  function countRounds(){
+    if(model.roundsLeft === 3)
+      $result.html('Two Rounds Remain');
+    if(model.roundsLeft === 2)
+      $result.html('One Round Remains');
+    if(model.roundsLeft === 1)
+      $result.html('Last Round');
+    if (model.roundsLeft === 0)
+      endGame();
+
+  }
 
   function rollPlayerDice(){
     model.playerHand.forEach((value, idx) => {
@@ -119,26 +129,14 @@ $(() => {
         pushToIndex(idx);
         render();
       });
-      console.log(model.currentHand);
     });
+    console.log('player===>',model.playerHand);
   }
 
   function removeHighlighted(){
     $('.highlighted').removeClass('highlighted');
   }
 
-  // function rollDiceAgain(){
-  //   removeHighlighted();
-  //
-  //   // if(roundsRolled <3 ){
-  //   model.rollagain.forEach((value,idx)=> {
-  //     const elem = $square;
-  //     elem.toggleClass('highlighted die-' + value);
-  //     $playerContainer.append(elem);
-  //     elem.on('click', () => pushToIndex(idx));
-  //   });
-  //   //}
-  // }
 
   function rollComputerDice(){
     model.computerHand.forEach(value => {
@@ -146,6 +144,7 @@ $(() => {
       elem.addClass('die-' + value);
       $computerContainer.append(elem);
     });
+    console.log('computer===>',model.computerHand);
   }
 
 
@@ -154,6 +153,7 @@ $(() => {
     rollPlayerDice();
     rollComputerDice();
     loopHighlighted();
+    countRounds();
   }
 
 
@@ -171,10 +171,9 @@ $(() => {
     }
 
   }
-  // $rolldice.on('click', rollHighlightedPlayerDice);
   $rules.on('click',showRules);
-  //$rollDice.on('click',rollDiceAgain);
   $reset.on('click',reset);
   $startGame.on('click',startGame);
+  $hold.on('click', endGame);
 
 });// last line inside dom
