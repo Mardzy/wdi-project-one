@@ -127,11 +127,13 @@ img {
     .results-wrapper{
       background: rgba(256,256,256,0.02);
       display: flex;
-      width: 90%;
+      width: 100%;
       flex-flow: row;
-      justify-content: space-between;
+      justify-content: space-around;
       text-align: center;
       #wins{
+        align-self: center;
+
         color:rgba(34,139,34,0.8);
         flex: 1
       }
@@ -139,10 +141,15 @@ img {
       #result{
         color:rgba(255,140,0,0.8);
         @extend #wins;
+        flex: 2;
       }
 
       #losses{
         color: rgba(220,20,60,0.8);
+        @extend #wins;
+      }
+      #draws{
+        color: rgba(0,0,220,0.8);
         @extend #wins;
       }
     }

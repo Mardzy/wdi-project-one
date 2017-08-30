@@ -13,7 +13,6 @@ $(() => {
   const $rollDice = $('#roll-dice');
   const $hold = $('#hold');
 
-
   //display elements
   const $result = $('#result');
   const $gameContainer = $('#game-container');
@@ -22,19 +21,56 @@ $(() => {
   const $computerContainer = $('#cpu-container');
   const $wins = $('#wins span');
   const $losses = $('#losses span');
+  const $draws = $('#draws span');
   let wins = 0;
   let losses = 0;
-  let cpuSum, pSum;
-  let gameOver = false;
-  // //putting the data value into an array for computer and player
-  // const playerArray = $('.square').toArray().map((square)=>{
-  //   return $(square).data('value');
-  // });
-  //
-  // const cpuArray = $('.square').toArray().map((cpuSquare)=>{
-  //   return $(cpuSquare).data('value');
-  // });
+  let draws = 0;
+  let cpuSum = 0;
+  let pSum = 0;
+  let gamePlaying = true;
 
+  var model = {
+    playerHand: createRandomNumbers(5,1,6),
+    computerHand: createRandomNumbers(5,1,6),
+    highlightedIndices: [],
+    roundsLeft: 0
+
+  };
+  function startGame(){
+    model.roundsLeft = 3;
+    render(model);
+    removeHighlighted();
+    winCondition();
+  }
+
+  function newRound(){
+    removeHighlighted();
+    $wins.text(wins);
+    $losses.text(losses);
+    $draws.text(draws);
+    $playerContainer.html('');
+    $computerContainer.html('');
+    gamePlaying = true;
+    model = {
+      playerHand: createRandomNumbers(5,1,6),
+      computerHand: createRandomNumbers(5,1,6),
+      highlightedIndices: [],
+      roundsLeft: 3
+    };
+
+    rollPlayerDice();
+    rollComputerDice();
+    loopHighlighted();
+    countRounds();
+  }
+
+  function render(){
+    reset();
+    rollPlayerDice();
+    rollComputerDice();
+    loopHighlighted();
+    countRounds();
+  }
 
   function randomNumber(min, max) {
     min = Math.ceil(min);
@@ -53,35 +89,37 @@ $(() => {
     return randomNumbers;
   }
 
-  var model = {
-    playerHand: createRandomNumbers(5,1,6),
-    computerHand: createRandomNumbers(5,1,6),
-    highlightedIndices: [],
-    roundsLeft: 0
 
-  };
 
-  function playerSum(){
-    pSum = model.playerHand.reduce((a, b) => a + b, 0);
-    console.log('player sum ==>',pSum);
-    return pSum;
+  function rollPlayerDice(){
+    model.playerHand.forEach((value, idx) => {
+      const elem = $('<div class="square"></div>');
+      elem.addClass('die-' + value);
+      $playerContainer.append(elem);
+      elem.on('click', () => {
+        pushToIndex(idx);
+        render();
+      });
+    });
+    //console.log('player===>',model.playerHand);
   }
 
-
-
-  function computerSum(){
-    cpuSum = model.computerHand.reduce((a, b) => a + b, 0);
-    console.log('computer sum ==>',cpuSum);
-    return cpuSum;
+  function rollComputerDice(){
+    model.computerHand.forEach(value => {
+      const elem = $('<div id="hidden-dice" class="square"></div>');
+      elem.addClass('die-' + value);
+      $computerContainer.append(elem);
+    });
+    //console.log('computer===>',model.computerHand);
   }
 
-  function startGame(){
-    model.roundsLeft = 3;
-    render(model);
-    gameOver = false;
+  function pushToIndex(idx) {
+    if (model.highlightedIndices.length < 3 && !model.highlightedIndices.includes(idx))
+      model.highlightedIndices.push(idx);
   }
 
-  $rollDice.click(() => {
+  function createHighlights(){
+    if(!gamePlaying) return false;
     if(model.roundsLeft > 0) {
       model.highlightedIndices.forEach(i => {
         model.playerHand[i] = randomNumber(1,6);
@@ -90,37 +128,17 @@ $(() => {
       model.roundsLeft = model.roundsLeft - 1;
     }
     render();
-  });
-
-  function endGame() {
-    if(gameOver)
-      gameOver = true;
-    model.highlightedIndices = [];
-    model.roundsLeft = 0;
-    revealComputerHand();
-    playerSum();
-    computerSum();
-    winCondition();
   }
 
-  function winCondition(){
-
-    if(pSum > cpuSum){
-      $result.html('You Win');
-      wins++;
-      $wins.text(wins);
-    } else if (pSum < cpuSum){
-      $result.html('You Lose');
-      losses++;
-      $losses.text(losses);
-    } else {
-      $result.html('Draw');
-    }
-
-  }
-
-  function revealComputerHand(){
-    $('div#hidden-dice').removeAttr('id');
+  function countRounds(){
+    if(model.roundsLeft === 3)
+      $result.html('Three Rounds Remain');
+    if(model.roundsLeft === 2)
+      $result.html('Two Rounds Remain');
+    if(model.roundsLeft === 1)
+      $result.html('Last Round');
+    if (model.roundsLeft === 0)
+      endGame();
   }
 
   function loopHighlighted(){
@@ -132,74 +150,66 @@ $(() => {
       }
   }
 
-  function pushToIndex(idx) {
-    if (model.highlightedIndices.length < 3 && !model.highlightedIndices.includes(idx))
-      model.highlightedIndices.push(idx);
+  function playerSum(){
+    pSum = model.playerHand.reduce((a, b) => a + b, 0);
+    console.log('player sum ==>',pSum);
+    return pSum;
   }
 
-  function reset(){
-    gameOver = false;
-    $playerContainer.html('');
-    $computerContainer.html('');
-    removeHighlighted();
+  function computerSum(){
+    cpuSum = model.computerHand.reduce((a, b) => a + b, 0);
+    console.log('computer sum ==>',cpuSum);
+    return cpuSum;
   }
 
-  function reloadPage(){
-    window.location.reload();
-  }
+  function winCondition(){
+    if(gamePlaying){
+      if(pSum > cpuSum){
+        wins++;
+        $result.html('You Win');
+        $wins.text(wins);
 
-  function countRounds(){
-    if(model.roundsLeft === 3)
-      $result.html('Two Rounds Remain');
-    if(model.roundsLeft === 2)
-      $result.html('One Round Remains');
-    if(model.roundsLeft === 1)
-      $result.html('Last Round');
-    if (model.roundsLeft === 0)
-      endGame();
-    gameOver = true;
-  }
-
-  function rollPlayerDice(){
-    if(!gameOver){
-      countRounds();
-      model.playerHand.forEach((value, idx) => {
-        const elem = $('<div class="square"></div>');
-        elem.addClass('die-' + value);
-        $playerContainer.append(elem);
-        elem.on('click', () => {
-          pushToIndex(idx);
-          render();
-        });
-      });
+      } else if (pSum < cpuSum){
+        losses++;
+        $result.html('You Lose');
+        $losses.text(losses);
+      } else {
+        $result.html('Draw');
+        $draws.text(draws);
+        draws++;
+      }
     }
+  }
 
+  function endGame() {
+    model.highlightedIndices = [];
+    model.roundsLeft = 0;
+    revealComputerHand();
+    playerSum();
+    computerSum();
+    winCondition();
+    gamePlaying = false;
   }
 
   function removeHighlighted(){
     $('.highlighted').removeClass('highlighted');
   }
 
-
-  function rollComputerDice(){
-    model.computerHand.forEach(value => {
-      const elem = $('<div id="hidden-dice" class="square"></div>');
-      elem.addClass('die-' + value);
-      $computerContainer.append(elem);
-    });
-    console.log('computer===>',model.computerHand);
+  function revealComputerHand(){
+    $('div#hidden-dice').removeAttr('id');
   }
 
-  function render(){
-    reset();
-    rollPlayerDice();
-    rollComputerDice();
-    loopHighlighted();
-
+  function reset(){
+    $playerContainer.html('');
+    $computerContainer.html('');
+    removeHighlighted();
+    wins = 0;
+    losses = 0;
+    cpuSum = 0;
+    pSum = 0;
+    gamePlaying = true;
   }
 
-
-  // jquery listeners
   function showRules(){
     if($gameContainer.css('display')!=='none'){
       $gameContainer.css({'display': 'none'});
@@ -209,15 +219,14 @@ $(() => {
       $gameContainer.css({'display': 'flex'});
     }
   }
-  // function disableButtons(){
-  //   if(gameOver){
-  //     $hold.prop('disabled', false);
-  //     $rollDice.prop('disabled', false);
-  //   }
-  //}
+
+
+
+  // jquery listeners
   $startGame.on('click',startGame);
-  $reset.on('click', reloadPage);
-  $newRound.on('click', reset);
+  $reset.on('click', reset);
+  $newRound.on('click', newRound);
   $rules.on('click',showRules);
-  $hold.one('click', endGame);
+  $rollDice.on('click', createHighlights);
+  $hold.on('click', endGame);
 });// last line inside dom
