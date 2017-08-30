@@ -10,7 +10,7 @@ $(() => {
   const $reset = $('#reset');
   const $startGame = $('#start-game');
   const $rollDice = $('#roll-dice');
-  // const $hold = $('#hold');
+  const $hold = $('#hold');
 
 
   //display elements
@@ -34,13 +34,19 @@ $(() => {
     return $(cpuSquare).data('value');
   });
 
+
+  function randomNumber(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return  Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   //game logic
   function createRandomNumbers(length,min,max){
     const randomNumbers =[];
     for (let i = 0; i<length;i++){
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      const random= Math.floor(Math.random() * (max - min + 1)) + min;
+
+      const random = randomNumber(min, max);
       randomNumbers.push(random);
     }
     return randomNumbers;
@@ -48,18 +54,37 @@ $(() => {
 
   var model = {
     playerHand: createRandomNumbers(5,1,6),
-    //playerHighlighted: createRandomNumbers(rollValue,1,6),
     computerHand: createRandomNumbers(5,1,6),
-    //rollagain: createRandomNumbers(**neeed to sort this**,1,6),
     highlightedIndices: [],
-    currentHand: []
+    roundsLeft: 0
   };
 
 
 
   function startGame(){
+    model.roundsLeft = 2;
     render(model);
   }
+
+  $rollDice.click(() => {
+    if(model.roundsLeft > 0) {
+      model.highlightedIndices.forEach(i => {
+        model.playerHand[i] = randomNumber(1,6);
+      });
+      model.highlightedIndices = [];
+      model.roundsLeft = model.roundsLeft - 1;
+    }
+    render();
+  });
+
+  $hold.click(() => {
+    if(model.roundsLeft > 0) {
+      model.highlightedIndices = [];
+      model.roundsLeft = model.roundsLeft - 1;
+    }
+  });
+
+
 
   function loopHighlighted(){
     for(let i =0; i < model.highlightedIndices.length; i++){
@@ -71,9 +96,7 @@ $(() => {
 
   function pushToIndex(idx) {
     if (model.highlightedIndices.length < 3 && !model.highlightedIndices.includes(idx))
-      model.highlightedIndices.push(idx);
-    loopHighlighted();
-
+    model.highlightedIndices.push(idx);
   }
 
   function reset(){
@@ -92,9 +115,10 @@ $(() => {
       const elem = $('<div class="square"></div>');
       elem.addClass('die-' + value);
       $playerContainer.append(elem);
-      elem.on('click', () => pushToIndex(idx));
-      if(model.currentHand.length<5)
-        model.currentHand.push(value);
+      elem.on('click', () => {
+        pushToIndex(idx);
+        render();
+      });
       console.log(model.currentHand);
     });
   }
@@ -129,8 +153,7 @@ $(() => {
     reset();
     rollPlayerDice();
     rollComputerDice();
-    removeHighlighted();
-
+    loopHighlighted();
   }
 
 
