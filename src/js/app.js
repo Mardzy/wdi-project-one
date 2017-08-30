@@ -6,9 +6,10 @@ $(() => {
   //variables
 
   //buttons
-  const $rules = $('#rules');
-  const $reset = $('#reset');
   const $startGame = $('#start-game');
+  const $reset = $('#reset');
+  const $rules = $('#rules');
+  const $newRound = $('#new-round');
   const $rollDice = $('#roll-dice');
   const $hold = $('#hold');
 
@@ -75,14 +76,13 @@ $(() => {
   }
 
   function startGame(){
-    clearGameBoard();
     model.roundsLeft = 3;
     render(model);
     gameOver = false;
   }
 
   $rollDice.click(() => {
-    if(model.roundsLeft > 0 && ! gameOver) {
+    if(model.roundsLeft > 0) {
       model.highlightedIndices.forEach(i => {
         model.playerHand[i] = randomNumber(1,6);
       });
@@ -93,7 +93,8 @@ $(() => {
   });
 
   function endGame() {
-    gameOver = true;
+    if(gameOver)
+      gameOver = true;
     model.highlightedIndices = [];
     model.roundsLeft = 0;
     revealComputerHand();
@@ -103,6 +104,7 @@ $(() => {
   }
 
   function winCondition(){
+
     if(pSum > cpuSum){
       $result.html('You Win');
       wins++;
@@ -134,20 +136,16 @@ $(() => {
     if (model.highlightedIndices.length < 3 && !model.highlightedIndices.includes(idx))
       model.highlightedIndices.push(idx);
   }
-  function clearGameBoard(){
-    $playerContainer.html('');
-    $computerContainer.html('');
-  }
 
   function reset(){
     gameOver = false;
-    clearGameBoard();
-    $wins.text('0');
-    $losses.text('0');
+    $playerContainer.html('');
+    $computerContainer.html('');
     removeHighlighted();
-    wins = 0;
-    losses = 0;
+  }
 
+  function reloadPage(){
+    window.location.reload();
   }
 
   function countRounds(){
@@ -159,7 +157,7 @@ $(() => {
       $result.html('Last Round');
     if (model.roundsLeft === 0)
       endGame();
-
+    gameOver = true;
   }
 
   function rollPlayerDice(){
@@ -175,8 +173,7 @@ $(() => {
         });
       });
     }
-    gameOver = false;
-    console.log('player===>',model.playerHand);
+
   }
 
   function removeHighlighted(){
@@ -211,10 +208,16 @@ $(() => {
       $hiddenWrapper.css({'display': 'none'});
       $gameContainer.css({'display': 'flex'});
     }
-
   }
-  $rules.on('click',showRules);
-  $reset.on('click',reset);
+  // function disableButtons(){
+  //   if(gameOver){
+  //     $hold.prop('disabled', false);
+  //     $rollDice.prop('disabled', false);
+  //   }
+  //}
   $startGame.on('click',startGame);
-
+  $reset.on('click', reloadPage);
+  $newRound.on('click', reset);
+  $rules.on('click',showRules);
+  $hold.one('click', endGame);
 });// last line inside dom
