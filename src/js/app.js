@@ -19,19 +19,20 @@ $(() => {
   const $hiddenWrapper = $('#hidden-wrapper');
   const $playerContainer = $('#player-container');
   const $computerContainer = $('#cpu-container');
-  const $wins= $('#wins span');
-  const $losses= $('#losses span');
-  const wins= 0;
-  const losses= 0;
-
-  //putting the data value into an array for computer and player
-  const playerArray = $('.square').toArray().map((square)=>{
-    return $(square).data('value');
-  });
-
-  const cpuArray = $('.square').toArray().map((cpuSquare)=>{
-    return $(cpuSquare).data('value');
-  });
+  const $wins = $('#wins span');
+  const $losses = $('#losses span');
+  let wins = 0;
+  let losses = 0;
+  let cpuSum, pSum;
+  let gameOver = false;
+  // //putting the data value into an array for computer and player
+  // const playerArray = $('.square').toArray().map((square)=>{
+  //   return $(square).data('value');
+  // });
+  //
+  // const cpuArray = $('.square').toArray().map((cpuSquare)=>{
+  //   return $(cpuSquare).data('value');
+  // });
 
 
   function randomNumber(min, max) {
@@ -59,13 +60,29 @@ $(() => {
 
   };
 
+  function playerSum(){
+    pSum = model.playerHand.reduce((a, b) => a + b, 0);
+    console.log('player sum ==>',pSum);
+    return pSum;
+  }
+
+
+
+  function computerSum(){
+    cpuSum = model.computerHand.reduce((a, b) => a + b, 0);
+    console.log('computer sum ==>',cpuSum);
+    return cpuSum;
+  }
+
   function startGame(){
+    clearGameBoard();
     model.roundsLeft = 3;
     render(model);
+    gameOver = false;
   }
 
   $rollDice.click(() => {
-    if(model.roundsLeft > 0) {
+    if(model.roundsLeft > 0 && ! gameOver) {
       model.highlightedIndices.forEach(i => {
         model.playerHand[i] = randomNumber(1,6);
       });
@@ -76,11 +93,29 @@ $(() => {
   });
 
   function endGame() {
+    gameOver = true;
     model.highlightedIndices = [];
     model.roundsLeft = 0;
     revealComputerHand();
+    playerSum();
+    computerSum();
+    winCondition();
   }
 
+  function winCondition(){
+    if(pSum > cpuSum){
+      $result.html('You Win');
+      wins++;
+      $wins.text(wins);
+    } else if (pSum < cpuSum){
+      $result.html('You Lose');
+      losses++;
+      $losses.text(losses);
+    } else {
+      $result.html('Draw');
+    }
+
+  }
 
   function revealComputerHand(){
     $('div#hidden-dice').removeAttr('id');
@@ -99,13 +134,20 @@ $(() => {
     if (model.highlightedIndices.length < 3 && !model.highlightedIndices.includes(idx))
       model.highlightedIndices.push(idx);
   }
-
-  function reset(){
+  function clearGameBoard(){
     $playerContainer.html('');
     $computerContainer.html('');
-    $wins.text(wins);
-    $losses.text(losses);
+  }
+
+  function reset(){
+    gameOver = false;
+    clearGameBoard();
+    $wins.text('0');
+    $losses.text('0');
     removeHighlighted();
+    wins = 0;
+    losses = 0;
+
   }
 
   function countRounds(){
@@ -121,15 +163,19 @@ $(() => {
   }
 
   function rollPlayerDice(){
-    model.playerHand.forEach((value, idx) => {
-      const elem = $('<div class="square"></div>');
-      elem.addClass('die-' + value);
-      $playerContainer.append(elem);
-      elem.on('click', () => {
-        pushToIndex(idx);
-        render();
+    if(!gameOver){
+      countRounds();
+      model.playerHand.forEach((value, idx) => {
+        const elem = $('<div class="square"></div>');
+        elem.addClass('die-' + value);
+        $playerContainer.append(elem);
+        elem.on('click', () => {
+          pushToIndex(idx);
+          render();
+        });
       });
-    });
+    }
+    gameOver = false;
     console.log('player===>',model.playerHand);
   }
 
@@ -147,17 +193,13 @@ $(() => {
     console.log('computer===>',model.computerHand);
   }
 
-
   function render(){
     reset();
     rollPlayerDice();
     rollComputerDice();
     loopHighlighted();
-    countRounds();
+
   }
-
-
-
 
 
   // jquery listeners
@@ -174,6 +216,5 @@ $(() => {
   $rules.on('click',showRules);
   $reset.on('click',reset);
   $startGame.on('click',startGame);
-  $hold.on('click', endGame);
 
 });// last line inside dom
