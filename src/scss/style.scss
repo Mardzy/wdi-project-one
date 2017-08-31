@@ -2,6 +2,8 @@
 @import "header";
 @import "dice";
 @import "reset";
+@import "media-queries";
+
 *
 {
   margin:0;
@@ -38,7 +40,7 @@ button{
   height: 32%;
   font-size: 18px;
   font-weight: 500;
-  width: 200px;
+  width: 180px;
   border: none;
   border-radius: 6px;
   box-shadow: $box-shadow;

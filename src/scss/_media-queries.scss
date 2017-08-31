@@ -1,0 +1,25 @@
+@media only screen and (max-width : 768px)  {
+  .header-wrapper{
+
+
+    #poker {
+      width: 60px;
+      padding-right: 8%;
+    }
+    img {
+      align-self: center;
+      width: 17%;
+      height: 65px;
+
+    }
+    p {
+      align-self: center;
+      font-size: 45px;
+      text-align: center;
+      text-rendering: optimizeLegibility;
+      text-shadow: $text-shadow;
+      }
+
+
+    }
+}
