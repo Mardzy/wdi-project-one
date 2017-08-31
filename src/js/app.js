@@ -12,6 +12,7 @@ $(() => {
   const $newRound = $('#new-round');
   const $rollDice = $('#roll-dice');
   const $hold = $('#hold');
+  const clap = new Audio('../sounds/applause.mp3');
 
   //display elements
   const $result = $('#result');
@@ -188,6 +189,7 @@ $(() => {
         wins++;
         $result.text('You Win! '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(34,139,34,0.8)'});
         $wins.text(wins);
+        clap.play();
       } if (pSum < cpuSum){
         losses++;
         $result.text('You Lose.  '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(220,20,60,0.8)'});
