@@ -153,9 +153,9 @@ $(() => {
 
   function countRounds(){
     if(model.roundsLeft === 3)
-      $result.html('3 Rounds left');
+      $result.html('3 rolls left');
     if(model.roundsLeft === 2)
-      $result.html('2 Rounds left');
+      $result.html('2 rolls left');
     if(model.roundsLeft === 1)
       $result.html('Last Round');
     if (model.roundsLeft === 0)
