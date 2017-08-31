@@ -4,7 +4,6 @@
 $(() => {
 
   //variables
-
   //buttons
   const $startGame = $('#start-game');
   const $reset = $('#reset');
@@ -12,7 +11,9 @@ $(() => {
   const $newRound = $('#new-round');
   const $rollDice = $('#roll-dice');
   const $hold = $('#hold');
-  const clap = new Audio('../sounds/applause.mp3');
+  const clap = new Audio('src/sounds/applause.mp3');
+  const roll = new Audio('src/sounds/roll-dice.mp3');
+  const anger = new Audio('src/sounds/anger.wav');
 
   //display elements
   const $result = $('#result');
@@ -136,6 +137,7 @@ $(() => {
   }
 
   function rollTheDice(){
+    roll();
     hideRules();
     if(!gamePlaying) return false;
     if(model.roundsLeft > 0) {
@@ -194,6 +196,7 @@ $(() => {
         losses++;
         $result.text('You Lose.  '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(220,20,60,0.8)'});
         $losses.text(losses);
+        anger.play();
       } if(!gamePlaying && pSum === cpuSum){
         draws++;
         $result.html('Draw');
