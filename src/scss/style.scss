@@ -30,7 +30,7 @@ img {
   font-weight: 500;
   font-size: 20px;
   display: flex;
-  height: 150px;
+  height: 140px;
   background: transparent;
   flex-flow: wrap;
   justify-content: space-around;
@@ -125,21 +125,23 @@ img {
 
     }
     .results-wrapper{
-      background: rgba(256,256,256,0.02);
+      background-color: rgba(221,217,218,0.8);
       display: flex;
       width: 100%;
       flex-flow: row;
-      justify-content: space-around;
       text-align: center;
+      align-content: space-around;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
       #wins{
         align-self: center;
-
+        align-content: space-between;
         color:rgba(34,139,34,0.8);
         flex: 1
       }
 
       #result{
-        color:rgba(255,140,0,0.8);
+        color:rgba(0, 51, 102,0.8);
         @extend #wins;
         flex: 2;
       }
@@ -165,7 +167,7 @@ img {
 
 #hidden-wrapper{
   @extend #page-wrapper;
-  width: 80%;
+  width: 65%;
   background-color:rgba(208, 202, 199,0.8);
   color: Orange;
   border-radius: $border-radius;
@@ -188,16 +190,17 @@ img {
     justify-content: space-around;
     flex-direction: row;
     p{
-      margin-top: -20px;
+      margin-top: -15px;
       line-height: 26px;
       letter-spacing: 0.1em;
       display: flex;
       justify-content: flex-start;
-      width: 80%;
+      width: 85%;
       flex-wrap: wrap;
       flex-direction: row;
       text-align: left;
-      font-size: 20px;
+      font-size: 16px;
+      text-transform: none;
     }
     .hands
     {
