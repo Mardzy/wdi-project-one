@@ -11,9 +11,8 @@ $(() => {
   const $newRound = $('#new-round');
   const $rollDice = $('#roll-dice');
   const $hold = $('#hold');
-  const clap = new Audio('audio/applause.mp3');
-  const roll = new Audio('audio/rolldice.mp3');
-  const anger = new Audio('audio/anger.wav');
+  // const clap = new Audio('../audio/applause.mp3');
+  const rollIt = new Audio('../audio/rolldice.mp3');
 
   //display elements
   const $result = $('#result');
@@ -49,7 +48,8 @@ $(() => {
   }
 
   function newRound(){
-    roll();
+    rollIt.play();
+    console.log('playing rollIt');
     $result.css({'color': 'rgba(0, 51, 102,0.8)'});
     hideRules();
     removeHighlighted();
@@ -118,6 +118,7 @@ $(() => {
   }
 
   function rollComputerDice(){
+
     model.computerHand.forEach(value => {
       const elem = $('<div id="hidden-dice" class="square"></div>');
       elem.addClass('die-' + value);
@@ -182,26 +183,29 @@ $(() => {
     return cpuSum;
   }
 
-
-
-
   function winCondition(){
-    if(!gamePlaying)return false; {
-      if(pSum > cpuSum){
-        wins++;
-        $result.text('You Win! '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(34,139,34,0.8)'});
-        $wins.text(wins);
-        clap.play();
-      } if (pSum < cpuSum){
-        losses++;
-        $result.text('You Lose.  '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(220,20,60,0.8)'});
-        $losses.text(losses);
-        anger.play();
-      } if(!gamePlaying && pSum === cpuSum){
-        draws++;
-        $result.html('Draw');
-        $draws.text(draws);
-      }
+    if(!gamePlaying)return false;
+    console.log(pSum, cpuSum);
+
+    if(pSum > cpuSum){
+      wins++;
+      $result.text('You Win! '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(34,139,34,0.8)'});
+      $wins.text(wins);
+      const clap = new Audio('../audio/applause.mp3');
+      clap.play();
+      // console.log('PLAYING clap because WIN', clap);
+    } else if(pSum === cpuSum){
+      draws++;
+      $result.html('Draw');
+      $draws.text(draws);
+      // console.log('NOT playing clap DRAW', clap);
+    } else if (cpuSum > pSum){
+      losses++;
+      $result.text('You Lose.  '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(220,20,60,0.8)'});
+      $losses.text(losses);
+      const anger = new Audio('../audio/anger.wav');
+      anger.play();
+      // console.log('NOT playing clap LOSE', clap);
     }
   }
 

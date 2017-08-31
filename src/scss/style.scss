@@ -34,7 +34,7 @@ button{
   background-color: rgba(221,217,218,0.8);
   text-transform: uppercase;
   color: rgb(131, 30, 27);
-  height: 32%;
+  height: 40px;
   font-size: 18px;
   font-weight: 500;
   width: 180px;
@@ -172,6 +172,19 @@ button{
     height: 100%;
     align-items: center;
     justify-content: space-around;
+  }
+  button{
+    background-color: rgba(221,217,218,0.8);
+    text-transform: uppercase;
+    color: rgb(131, 30, 27);
+    height: 40px;
+    font-size: 18px;
+    font-weight: 500;
+    width: 180px;
+    border: none;
+    border-radius: 6px;
+    box-shadow: $box-shadow;
+    text-shadow: $text-shadow;
   }
 }
 
