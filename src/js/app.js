@@ -11,9 +11,9 @@ $(() => {
   const $newRound = $('#new-round');
   const $rollDice = $('#roll-dice');
   const $hold = $('#hold');
-  const clap = new Audio('src/sounds/applause.mp3');
-  const roll = new Audio('src/sounds/roll-dice.mp3');
-  const anger = new Audio('src/sounds/anger.wav');
+  const clap = new Audio('audio/applause.mp3');
+  const roll = new Audio('audio/rolldice.mp3');
+  const anger = new Audio('audio/anger.wav');
 
   //display elements
   const $result = $('#result');
@@ -49,6 +49,7 @@ $(() => {
   }
 
   function newRound(){
+    roll();
     $result.css({'color': 'rgba(0, 51, 102,0.8)'});
     hideRules();
     removeHighlighted();
@@ -137,7 +138,6 @@ $(() => {
   }
 
   function rollTheDice(){
-    roll();
     hideRules();
     if(!gamePlaying) return false;
     if(model.roundsLeft > 0) {
