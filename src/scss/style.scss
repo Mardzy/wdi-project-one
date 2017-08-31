@@ -2,7 +2,6 @@
 @import "header";
 @import "dice";
 @import "reset";
-@import "media-queries";
 
 *
 {
@@ -24,9 +23,7 @@ body {
   text-transform: uppercase;
 
 }
-#wrapper{
-  display: flex;
-}
+
 
 img {
   width: 100%;
@@ -45,11 +42,6 @@ button{
   border-radius: 6px;
   box-shadow: $box-shadow;
   text-shadow: $text-shadow;
-
-  &button:hover{
-    background-color: rgba(221,217,218,0.6)-2%;
-  }
-
 }
 
 #game-wrapper{
@@ -189,14 +181,12 @@ footer {
   background-color: transparent;
   letter-spacing: .08em;
   font-weight: 500;
-  align-self: flex-end;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   padding-left: 30px;
   padding-right: 30px;
   height: 30px;
   text-shadow: $text-shadow;
-
 
   .heart{
     color: red;
@@ -205,3 +195,4 @@ footer {
     color:#F15B31;
   }
 }
+@import "media-queries";
