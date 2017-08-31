@@ -37,6 +37,7 @@ $(() => {
   };
 
   function startGame(){
+    hideRules();
     wins = 0;
     losses = 0;
     draws = 0;
@@ -46,6 +47,8 @@ $(() => {
   }
 
   function newRound(){
+    $result.css({'color': 'rgba(0, 51, 102,0.8)'});
+    hideRules();
     removeHighlighted();
     $wins.text(wins);
     $losses.text(losses);
@@ -96,7 +99,15 @@ $(() => {
       elem.addClass('die-' + value);
       $playerContainer.append(elem);
       elem.on('click', () => {
-        pushToIndex(idx);
+        if(!elem.hasClass('highlighted')) {
+          pushToIndex(idx);
+          console.log('pushing index');
+          console.log(model.highlightedIndices);
+        } else {
+          removeFromHighlighted(idx);
+          console.log(model.highlightedIndices);
+          console.log('removing index and class');
+        }
         render();
       });
     });
@@ -117,7 +128,14 @@ $(() => {
       model.highlightedIndices.push(idx);
   }
 
-  function createHighlights(){
+  function removeFromHighlighted(idx) {
+    const idxOfidx = model.highlightedIndices.indexOf(idx);
+    model.highlightedIndices.splice(idxOfidx, 1);
+    console.log(model.highlightedIndices);
+  }
+
+  function rollTheDice(){
+    hideRules();
     if(!gamePlaying) return false;
     if(model.roundsLeft > 0) {
       model.highlightedIndices.forEach(i => {
@@ -131,9 +149,9 @@ $(() => {
 
   function countRounds(){
     if(model.roundsLeft === 3)
-      $result.html('Three Rounds Remain');
+      $result.html('3 Rounds left');
     if(model.roundsLeft === 2)
-      $result.html('Two Rounds Remain');
+      $result.html('2 Rounds left');
     if(model.roundsLeft === 1)
       $result.html('Last Round');
     if (model.roundsLeft === 0)
@@ -161,15 +179,18 @@ $(() => {
     return cpuSum;
   }
 
+
+
+
   function winCondition(){
     if(!gamePlaying)return false; {
       if(pSum > cpuSum){
         wins++;
-        $result.html('You Win');
+        $result.text('You Win! '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(34,139,34,0.8)'});
         $wins.text(wins);
       } if (pSum < cpuSum){
         losses++;
-        $result.html('You Lose');
+        $result.text('You Lose.  '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(220,20,60,0.8)'});
         $losses.text(losses);
       } if(!gamePlaying && pSum === cpuSum){
         draws++;
@@ -193,8 +214,6 @@ $(() => {
     $('.highlighted').removeClass('highlighted');
   }
 
-
-
   function revealComputerHand(){
     $('div#hidden-dice').removeAttr('id');
   }
@@ -207,14 +226,17 @@ $(() => {
     pSum = 0;
     gamePlaying = true;
   }
+  function hideRules(){
+    $hiddenWrapper.css({'display': 'none'});
+    $gameContainer.css({'display': 'flex'});
+  }
 
   function showRules(){
     if($gameContainer.css('display')!=='none'){
       $gameContainer.css({'display': 'none'});
       $hiddenWrapper.css({'display': 'flex'});
     } else {
-      $hiddenWrapper.css({'display': 'none'});
-      $gameContainer.css({'display': 'flex'});
+      hideRules();
     }
   }
 
@@ -223,11 +245,7 @@ $(() => {
   $reset.on('click', reset);
   $newRound.on('click', newRound);
   $rules.on('click',showRules);
-  $rollDice.on('click', createHighlights);
+  $rollDice.on('click', rollTheDice);
   $hold.on('click', endGame);
 
-  $('<div class="square"></div>').change(function(){
-    $('<div class="square"></div>').removeClass('highlighted');
-    $('<div class="square"></div>').addClass('highlighted');
-  });
 });// last line inside dom

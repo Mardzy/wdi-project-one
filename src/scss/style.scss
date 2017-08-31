@@ -1,9 +1,11 @@
 @import "variables";
 @import "header";
 @import "dice";
+@import "reset";
 *
 {
   margin:0;
+  // max-height: 1200px;
 }
 body {
   color:rgba(234, 234, 234,0.9);
@@ -18,6 +20,10 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   text-transform: uppercase;
+
+}
+#wrapper{
+  display: flex;
 }
 
 img {
@@ -25,70 +31,35 @@ img {
   border-radius: $border-radius;
 }
 
-.nav-wrapper {
-  width: 100%;
+button{
+  background-color: rgba(221,217,218,0.8);
+  text-transform: uppercase;
+  color: rgb(131, 30, 27);
+  height: 32%;
+  font-size: 18px;
   font-weight: 500;
-  font-size: 20px;
-  display: flex;
-  height: 140px;
-  background: transparent;
-  flex-flow: wrap;
-  justify-content: space-around;
+  width: 200px;
+  border: none;
+  border-radius: 6px;
+  box-shadow: $box-shadow;
   text-shadow: $text-shadow;
 
-  button{
-    background-color: rgba(221,217,218,0.8);
-    text-transform: uppercase;
-    color: rgb(131, 30, 27);
-    height: 32%;
-    font-size: 18px;
-    font-weight: 500;
-    width: 50%;
-    border: none;
-    border-radius: 6px;
-    box-shadow: $box-shadow;
-    text-shadow: $text-shadow;
-
-    &button:hover{
-      background-color: rgba(221,217,218,0.6)-2%;
-    }
-
-  }
-  .play-wrapper{
-    display:flex;
-    height: 100%;
-    flex: 1;
-    flex-flow: column;
-    align-items: center;
-    justify-content: space-around;
+  &button:hover{
+    background-color: rgba(221,217,218,0.6)-2%;
   }
 
-  .score-wrapper{
-    @extend .play-wrapper;
-    p{
-      color:rgba(173,216,230 ,1 );
-    }
-    .cpu{
-      color:rgba(128,0,0,0.8);
-    }
-  }
-
-  .button-wrapper{
-    @extend .play-wrapper;
-  }
 }
 
-#page-wrapper{
-
-  height: 410px;
+#game-wrapper{
+  width: 100%;
+  height: 450px;
   display: flex;
-  justify-content: center;
-
-
+  justify-content: space-around;
+  flex-wrap: wrap;
   .square{
+    display: flex;
     width: 100px;
     height: 100px;
-    display: flex;
     align-self: center;
     background-color: rgb(234, 233, 233);
     border-radius: $border-radius;
@@ -97,66 +68,58 @@ img {
   .cpu-square{
     @extend .square;
   }
-  #game-container{
-    width: 80%;
-    height: 100%;
-    background-color: transparent;
+
+  .results-wrapper{
+    background-color: rgba(221,217,218,0.8);
     display: flex;
-    flex-wrap:wrap;
-    font-weight: 500;
-    font-size: 20px;
+    width: 700px;
+    height: 60px;
+    font-size: 25px;
+    flex-flow: row;
+    text-align: center;
+    align-self: center;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    #wins{
+      align-self: center;
+      color:rgba(34,139,34,0.8);
+      flex: 1
+    }
+
+    #result{
+      color:rgba(0, 51, 102,0.8);
+      @extend #wins;
+      flex: 1;
+    }
+
+    #losses{
+      color: rgba(220,20,60,0.8);
+      @extend #wins;
+    }
+  }
+  #game-container{
+    @extend .results-wrapper;
+    box-shadow:none;
+    background: none;
+    width: 80%;
+    height: 360px;
+    display: flex;
     text-shadow: $text-shadow;
     flex-direction: column;
-    align-items:center;
     justify-content: space-around;
-
-
+    align-items: center;
 
     #cpu-container{
       display: flex;
       justify-content: space-around;
-      align-self: center;
-      flex-direction: row;
-      width: 90%;
-      height: 150px;
+      width: 700px;
+      height: 140px;
+
       background-color: rgba(128,0,0,0.8);
       border-radius: $border-radius;
       box-shadow: $box-shadow;
 
     }
-    .results-wrapper{
-      background-color: rgba(221,217,218,0.8);
-      display: flex;
-      width: 100%;
-      flex-flow: row;
-      text-align: center;
-      align-content: space-around;
-      border-radius: $border-radius;
-      box-shadow: $box-shadow;
-      #wins{
-        align-self: center;
-        align-content: space-between;
-        color:rgba(34,139,34,0.8);
-        flex: 1
-      }
-
-      #result{
-        color:rgba(0, 51, 102,0.8);
-        @extend #wins;
-        flex: 2;
-      }
-
-      #losses{
-        color: rgba(220,20,60,0.8);
-        @extend #wins;
-      }
-      #draws{
-        color: rgba(0,0,220,0.8);
-        @extend #wins;
-      }
-    }
-
-
 
     #player-container{
       @extend #cpu-container;
@@ -166,31 +129,22 @@ img {
 }
 
 #hidden-wrapper{
-  @extend #page-wrapper;
+  @extend #game-wrapper;
+  z-index: 99;
   width: 65%;
   background-color:rgba(208, 202, 199,0.8);
   color: Orange;
   border-radius: $border-radius;
   flex-direction: column;
   color: rgb(131, 30, 27);
-  // text-shadow: $text-shadow;
   box-shadow: $box-shadow;
-  .hidden-headline{
-    display: flex;
-    flex-wrap: wrap;
-    flex-basis: auto;
-    justify-content: center;
-    margin-top: -30px;
-  }
-
   .hidden-rules{
-    margin-top: 25px;
     display: flex;
     height: 300px;
     justify-content: space-around;
     flex-direction: row;
     p{
-      margin-top: -15px;
+      margin-top: -45px;
       line-height: 26px;
       letter-spacing: 0.1em;
       display: flex;
@@ -199,22 +153,33 @@ img {
       flex-wrap: wrap;
       flex-direction: row;
       text-align: left;
-      font-size: 16px;
+      font-size: 15px;
       text-transform: none;
     }
-    .hands
-    {
-      @extend p;
-      font-size: 14px;
-      line-height:23px;
-      color: black;
-      width: 35%;
-      margin-left: -40px;
-    }
   }
-
 }
 
+.nav-wrapper {
+  width: 100%;
+  font-weight: 500;
+  font-size: 20px;
+  display: flex;
+  height: 100px;
+  background: transparent;
+  flex-flow: wrap;
+  justify-content: space-around;
+  text-shadow: $text-shadow;
+
+
+  .play-wrapper{
+    display:flex;
+    flex-wrap: wrap;
+    width: 900px;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
 
 footer {
   display: flex;
@@ -222,6 +187,7 @@ footer {
   background-color: transparent;
   letter-spacing: .08em;
   font-weight: 500;
+  align-self: flex-end;
   align-items: center;
   justify-content: space-between;
   padding-left: 30px;
