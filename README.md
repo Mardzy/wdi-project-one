@@ -20,7 +20,7 @@ When the dice are exchanged they are rolled in an attempt to created a greater s
 
 ### Challenges
 
-The main issue was finding a method to track the dice's values when selected to be removed.
+The main issue was finding a method to track the dice's values when selected to be removed, and keep the current dice with their index and value.
 
 ![alt text](dice-sums-win.png "Logo Title Text 1")
 

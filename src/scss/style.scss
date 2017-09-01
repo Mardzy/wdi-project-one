@@ -9,6 +9,9 @@
   // max-height: 1200px;
 }
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   color:rgba(234, 234, 234,0.9);
   margin:0;
   font-family: 'Montserrat', sans-serif;
@@ -192,6 +195,7 @@ button{
 
 footer {
   display: flex;
+  flex-direction: column;
   font-size: 14px;
   background-color: transparent;
   letter-spacing: .08em;
