@@ -1,4 +1,3 @@
-// *************update the data model and render**************
 
 
 $(() => {
@@ -11,8 +10,8 @@ $(() => {
   const $newRound = $('#new-round');
   const $rollDice = $('#roll-dice');
   const $hold = $('#hold');
-  // const clap = new Audio('../audio/applause.mp3');
-  const rollIt = new Audio('../audio/rolldice.mp3');
+  // const clap = new Audio('public/audio/applause.mp3');
+  const rollIt = new Audio('public/audio/rolldice.mp3');
 
   //display elements
   const $result = $('#result');
@@ -85,7 +84,7 @@ $(() => {
     return  Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  //game logic
+
   function createRandomNumbers(length,min,max){
     const randomNumbers =[];
     for (let i = 0; i<length;i++){
@@ -138,7 +137,7 @@ $(() => {
     console.log(model.highlightedIndices);
   }
 
-  function rollTheDice(){
+  function pushIndicies(){
     hideRules();
     if(!gamePlaying) return false;
     if(model.roundsLeft > 0) {
@@ -191,7 +190,7 @@ $(() => {
       wins++;
       $result.text('You Win! '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(34,139,34,0.8)'});
       $wins.text(wins);
-      const clap = new Audio('../audio/applause.mp3');
+      const clap = new Audio('public/audio/applause.mp3');
       clap.play();
       // console.log('PLAYING clap because WIN', clap);
     } else if(pSum === cpuSum){
@@ -203,7 +202,7 @@ $(() => {
       losses++;
       $result.text('You Lose.  '+ pSum + ' - ' + cpuSum).css({'color': 'rgba(220,20,60,0.8)'});
       $losses.text(losses);
-      const anger = new Audio('../audio/anger.wav');
+      const anger = new Audio('public/audio/anger.wav');
       anger.play();
       // console.log('NOT playing clap LOSE', clap);
     }
@@ -254,7 +253,7 @@ $(() => {
   $reset.on('click', reset);
   $newRound.on('click', newRound);
   $rules.on('click',showRules);
-  $rollDice.on('click', rollTheDice);
+  $rollDice.on('click', pushIndicies);
   $hold.on('click', endGame);
 
 });// last line inside dom
