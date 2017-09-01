@@ -253,7 +253,10 @@ $(() => {
   $reset.on('click', reset);
   $newRound.on('click', newRound);
   $rules.on('click',showRules);
-  $rollDice.on('click', pushIndicies);
+  $rollDice.on('click', function(){
+    pushIndicies();
+    rollIt.play();
+  });
   $hold.on('click', endGame);
 
 });// last line inside dom
