@@ -1,0 +1,121 @@
+@media only screen and (max-width : 767px)  {
+  body{
+    height: 600px;
+    margin: 0 auto;
+  }
+  .header-wrapper{
+    img {
+      display: none;
+
+    }
+    p {
+      font-size: 47px;
+    }
+  }
+
+  button{
+    font-size: 16px;
+    width: 150px;
+
+  }
+  #game-wrapper{
+    height: 360px;
+    .square{
+      width: 75px;
+      height: 75px;
+    }
+    .cpu-square{
+      @extend .square;
+    }
+
+
+    #game-container{
+      width: 90%;
+      height: 275px;
+
+      #cpu-container{
+        width: 485px;
+        height: 115px!important;
+      }
+
+      #player-container{
+        @extend #cpu-container;
+      }
+    }
+    .results-wrapper{
+      width: 485px;
+      font-size: 18px;
+
+    }
+  }
+  #hidden-wrapper{
+    height: 500px;
+    .hidden-rules{
+      height: 450px;
+      p{
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width : 500px){
+
+  body{
+    height: 667px;
+  }
+  .header-wrapper{
+    flex-wrap: wrap;
+ }
+
+  button{
+    font-size: 14px;
+    width: 150px;
+
+  }
+  #game-wrapper{
+    width: 375px;
+    height: 420px;
+    align-content: center;
+    margin: 0 auto;
+    .square{
+      width: 60px;
+      height: 60px;
+
+    }
+    .cpu-square{
+      @extend .square;
+    }
+
+
+    #game-container{
+      width: 90%;
+      height: 275px;
+
+      #cpu-container{
+        width: 365px;
+        height: 115px!important;
+      }
+
+      #player-container{
+        @extend #cpu-container;
+      }
+    }
+    .results-wrapper{
+      width: 365px;
+      font-size: 14px;
+      align-items: center;
+    }
+  }
+
+  #hidden-wrapper{
+    height: 500px;
+    .hidden-rules{
+      height: 500px;
+      p{
+        font-size: 12px;
+      }
+    }
+  }
+  }

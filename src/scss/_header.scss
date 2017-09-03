@@ -1,0 +1,30 @@
+
+.header-wrapper{
+
+  header{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background: transparent;
+    align-items: center;
+    height: 110px;
+
+  }
+
+  img {
+    align-self: center;
+    width: 17%;
+    height: 65px;
+
+  }
+  p {
+    height:80px;
+    align-self: center;
+    font-size: 65px;
+    text-align: center;
+    text-rendering: optimizeLegibility;
+    text-shadow: $text-shadow;
+    }
+
+
+  }
