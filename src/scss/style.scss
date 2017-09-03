@@ -1,217 +1,154 @@
-@import "variables";
-@import "header";
-@import "dice";
-@import "reset";
+/**********************************************
+*** GENERAL
+**********************************************/
 
-*
-{
-  margin:0;
-  // max-height: 1200px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
 }
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  color:rgba(234, 234, 234,0.9);
-  margin:0;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  background-attachment: fixed;
-  background-image: -webkit-linear-gradient(to top, rgba(64, 59, 74, 0.6), rgba(231, 233, 187, 0.5)),url('../images/wood.jpg');
-  background-image: linear-gradient(to top, rgba(64, 59, 74, 0.6), rgba(231, 233, 187, 0.5)),url('../images/wood.jpg');
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position: center;
-  text-transform: uppercase;
+    background-image: linear-gradient(rgba(62, 20, 20, 0.4), rgba(62, 20, 20, 0.4)), url(back.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: Lato;
+    font-weight: 300;
+    position: relative;
+    height: 100vh;
+    color: #555;
+}
 
+.wrapper {
+    width: 1000px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.player-0-panel,
+.player-1-panel {
+    width: 50%;
+    float: left;
+    height: 600px;
+    padding: 100px;
 }
 
 
-img {
-  width: 100%;
-  border-radius: $border-radius;
-}
 
-button{
-  background-color: rgba(221,217,218,0.8);
-  text-transform: uppercase;
-  color: rgb(131, 30, 27);
-  height: 40px;
-  font-size: 18px;
-  font-weight: 500;
-  width: 180px;
-  border: none;
-  border-radius: 6px;
-  box-shadow: $box-shadow;
-  text-shadow: $text-shadow;
-}
+/**********************************************
+*** PLAYERS
+**********************************************/
 
-#game-wrapper{
-  width: 100%;
-  height: 450px;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  .square{
-    display: flex;
-    width: 100px;
-    height: 100px;
-    align-self: center;
-    background-color: rgb(234, 233, 233);
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-  }
-  .cpu-square{
-    @extend .square;
-  }
-
-  .results-wrapper{
-    background-color: rgba(221,217,218,0.8);
-    display: flex;
-    width: 700px;
-    height: 60px;
-    font-size: 25px;
-    flex-flow: row;
+.player-name {
+    font-size: 40px;
     text-align: center;
-    align-self: center;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    #wins{
-      align-self: center;
-      color:rgba(34,139,34,0.8);
-      flex: 1
-    }
-
-    #result{
-      color:rgba(0, 51, 102,0.8);
-      @extend #wins;
-      flex: 1;
-    }
-
-    #losses{
-      color: rgba(220,20,60,0.8);
-      @extend #wins;
-    }
-  }
-  #game-container{
-    @extend .results-wrapper;
-    box-shadow:none;
-    background: none;
-    width: 80%;
-    height: 360px;
-    display: flex;
-    text-shadow: $text-shadow;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-
-    #cpu-container{
-      display: flex;
-      justify-content: space-around;
-      width: 700px;
-      height: 140px;
-
-      background-color: rgba(128,0,0,0.8);
-      border-radius: $border-radius;
-      box-shadow: $box-shadow;
-
-    }
-
-    #player-container{
-      @extend #cpu-container;
-      background-color: rgba(173,216,230 ,1 );
-    }
-  }
-}
-
-#hidden-wrapper{
-  @extend #game-wrapper;
-  z-index: 99;
-  width: 65%;
-  height: 400px;
-  background-color:rgba(208, 202, 199,0.8);
-  color: Orange;
-  border-radius: $border-radius;
-  flex-direction: column;
-  color: rgb(131, 30, 27);
-  box-shadow: $box-shadow;
-  .hidden-rules{
-    display: flex;
-    height: 400px;
-    justify-content: space-around;
-    flex-direction: row;
-    p{
-      margin-top: 15px;
-      display: flex;
-      height: 400px;
-      line-height: 24px;
-      display: flex;
-      justify-content: flex-start;
-      width: 85%;
-      flex-wrap: wrap;
-      flex-direction: row;
-      text-align: left;
-      font-size: 14px;
-      text-transform: none;
-    }
-  }
-}
-
-.nav-wrapper {
-  width: 100%;
-  font-weight: 500;
-  font-size: 20px;
-  display: flex;
-  height: 100px;
-  background: transparent;
-  flex-flow: wrap;
-  justify-content: space-around;
-  text-shadow: $text-shadow;
-
-
-  .play-wrapper{
-    display:flex;
-    flex-wrap: wrap;
-    width: 900px;
-    height: 100%;
-    align-items: center;
-    justify-content: space-around;
-  }
-  button{
-    background-color: rgba(221,217,218,0.8);
     text-transform: uppercase;
-    color: rgb(131, 30, 27);
-    height: 40px;
-    font-size: 18px;
-    font-weight: 500;
-    width: 180px;
+    letter-spacing: 2px;
+    font-weight: 100;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.player-score {
+    text-align: center;
+    font-size: 80px;
+    font-weight: 100;
+    color: #EB4D4D;
+    margin-bottom: 130px;
+}
+
+.active { background-color: #f7f7f7; }
+.active .player-name { font-weight: 300; }
+
+.active .player-name::after {
+    content: "\2022";
+    font-size: 47px;
+    position: absolute;
+    color: #EB4D4D;
+    top: -7px;
+    right: 10px;
+    
+}
+
+.player-current-box {
+    background-color: #EB4D4D;
+    color: #fff;
+    width: 40%;
+    margin: 0 auto;
+    padding: 12px;
+    text-align: center;
+}
+
+.player-current-label {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #222;
+}
+
+.player-current-score {
+    font-size: 30px;
+}
+
+button {
+    position: absolute;
+    width: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #555;
+    background: none;
     border: none;
-    border-radius: 6px;
-    box-shadow: $box-shadow;
-    text-shadow: $text-shadow;
-  }
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 300;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-footer {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  background-color: transparent;
-  letter-spacing: .08em;
-  font-weight: 500;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding-left: 30px;
-  padding-right: 30px;
-  height: 30px;
-  text-shadow: $text-shadow;
+button:hover { font-weight: 600; }
+button:hover i { margin-right: 20px; }
 
-  .heart{
-    color: red;
-  }
-  .name{
-    color:#F15B31;
-  }
+button:focus {
+    outline: none;
 }
-@import "media-queries";
+
+i {
+    color: #EB4D4D;
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 32px;
+    line-height: 1;
+    vertical-align: text-top;
+    margin-top: -4px;
+    transition: margin 0.3s;
+}
+
+.btn-new { top: 45px;}
+.btn-roll { top: 403px;}
+.btn-hold { top: 467px;}
+
+.dice {
+    position: absolute;
+    left: 50%;
+    top: 178px;
+    transform: translateX(-50%);
+    height: 100px;
+    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
+}
+
+.winner { background-color: #f7f7f7; }
+.winner .player-name { font-weight: 300; color: #EB4D4D; }
